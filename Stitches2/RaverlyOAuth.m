@@ -6,12 +6,15 @@
 //  Copyright (c) 2015 Nicole Yarroch. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "RaverlyOAuth.h"
 #import "AFOAuth1Client.h"
 #import "AFJSONRequestOperation.h"
 
 @interface RaverlyOAuth()
 @property (strong, nonatomic) NSUserDefaults *storage;
+@property (strong, nonatomic) NSDictionary *results;
+@property (strong, nonatomic) NSArray *minedResults;
 
 @end
 
@@ -22,7 +25,9 @@ static RaverlyOAuth *_sharedInstance;
 #define TOKEN_SAVED "RavelryTokenSaved"
 #define USER_NAME_SAVED "RavelryUserNameSaved"
 
--(NSUserDefaults *)storage {
+#define TOKEN_KEY_WR "RavelryTokena"
+
+- (NSUserDefaults *)storage {
     if (!_storage) _storage = [NSUserDefaults standardUserDefaults];
     return _storage;
 }
@@ -31,7 +36,6 @@ static RaverlyOAuth *_sharedInstance;
 {
     if (self = [super init])
     {
-       
         /* Check to see if token was saved */
         bool ravelryEnabled = [self.storage boolForKey:@TOKEN_SAVED];
         
@@ -40,6 +44,7 @@ static RaverlyOAuth *_sharedInstance;
             
             /* Initialize the client */
             self.ravelryClient = [[AFOAuth1Client alloc] initWithBaseURL:[NSURL URLWithString:@"https://www.ravelry.com"] key:@"95B5A3A459B890ED7F11" secret:@"8UpGjPflOWJFXSWJee+zttlz45Aw/dUUNA/7t7UN"];
+            
             
             /* Set the token with the saved token */
             AFOAuth1Token *savedToken = [AFOAuth1Token retrieveCredentialWithIdentifier:@TOKEN_KEY];
@@ -174,6 +179,39 @@ static RaverlyOAuth *_sharedInstance;
     }
     
     return _sharedInstance;
+}
+
+- (void)getFavorites {
+    
+    
+    NSString *url = [NSString stringWithFormat:@"https://api.ravelry.com/people/%@/favorites/list.json", self.userName];
+    
+    [self.ravelryClient getPath:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        //NSLog(@"RESPONSE OBJECT: %@", responseObject);
+        
+        NSDictionary *test = (NSDictionary *)responseObject;
+        
+        NSLog(@"%@", responseObject);
+        
+        NSArray *url = [test valueForKeyPath:@"favorites.favorited.first_photo.medium_url"];
+        NSArray *name = [test valueForKeyPath:@"favorites.favorited.first_photo.medium_url"];
+        
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjects:@[url, name] forKeys:@[@"colorURL", @"nameURL"]];
+        
+//        NSLog(@"TEST: %@", test);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"mySpecialNotificationKey" object:self userInfo:theInfo];
+
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Colors"
+                                                            message:[error localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }];
+    
 }
 
 

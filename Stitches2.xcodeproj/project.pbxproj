@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C1373FA1B1A97BD00A56620 /* FavoritesCVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1373F91B1A97BD00A56620 /* FavoritesCVC.m */; };
 		8C67F74D1A7D66D70036B4B6 /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C67F74C1A7D66D70036B4B6 /* Color.m */; };
 		8C67F7501A7D7FF40036B4B6 /* NeedlesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C67F74F1A7D7FF40036B4B6 /* NeedlesTableViewController.m */; };
 		8C944FD91A79C333000D329A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C944FD81A79C333000D329A /* main.m */; };
@@ -16,9 +17,11 @@
 		8C944FE41A79C333000D329A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C944FE31A79C333000D329A /* Images.xcassets */; };
 		8C944FE71A79C333000D329A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C944FE51A79C333000D329A /* LaunchScreen.xib */; };
 		8C944FF31A79C333000D329A /* Stitches2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C944FF21A79C333000D329A /* Stitches2Tests.m */; };
+		8C9AB0CD1B27C69300A138E7 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9AB0CB1B27C69300A138E7 /* ListViewController.swift */; };
+		8C9AB0CF1B27C71900A138E7 /* PhotoOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9AB0CE1B27C71900A138E7 /* PhotoOperations.swift */; };
 		8CED16FE1A79E2E9000FA954 /* YarnColorsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CED16FD1A79E2E9000FA954 /* YarnColorsTableViewController.m */; };
 		8CED17011A79E3BB000FA954 /* RaverlyOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CED17001A79E3BB000FA954 /* RaverlyOAuth.m */; };
-		A52C11304D2E13E20E8A2C48 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C281E37EF8AB9D89D7F022 /* libPods.a */; };
+		9345183837579C40E200DBAB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4431BC1C96E7F3EC6639F91A /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +36,9 @@
 
 /* Begin PBXFileReference section */
 		17481A052968277ED57EA8DA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4431BC1C96E7F3EC6639F91A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C1373F81B1A97BD00A56620 /* FavoritesCVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesCVC.h; sourceTree = "<group>"; };
+		8C1373F91B1A97BD00A56620 /* FavoritesCVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesCVC.m; sourceTree = "<group>"; };
 		8C67F74B1A7D66D70036B4B6 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		8C67F74C1A7D66D70036B4B6 /* Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Color.m; sourceTree = "<group>"; };
 		8C67F74E1A7D7FF40036B4B6 /* NeedlesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NeedlesTableViewController.h; sourceTree = "<group>"; };
@@ -50,12 +56,14 @@
 		8C944FEC1A79C333000D329A /* Stitches2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Stitches2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C944FF11A79C333000D329A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C944FF21A79C333000D329A /* Stitches2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Stitches2Tests.m; sourceTree = "<group>"; };
+		8C9AB0C91B27C69200A138E7 /* Stitches2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stitches2-Bridging-Header.h"; sourceTree = "<group>"; };
+		8C9AB0CB1B27C69300A138E7 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		8C9AB0CE1B27C71900A138E7 /* PhotoOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoOperations.swift; sourceTree = "<group>"; };
 		8CED16FC1A79E2E9000FA954 /* YarnColorsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YarnColorsTableViewController.h; sourceTree = "<group>"; };
 		8CED16FD1A79E2E9000FA954 /* YarnColorsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YarnColorsTableViewController.m; sourceTree = "<group>"; };
 		8CED16FF1A79E3BB000FA954 /* RaverlyOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaverlyOAuth.h; sourceTree = "<group>"; };
 		8CED17001A79E3BB000FA954 /* RaverlyOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaverlyOAuth.m; sourceTree = "<group>"; };
 		AD81E4DD9FAAACAB3A539D52 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		E0C281E37EF8AB9D89D7F022 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A52C11304D2E13E20E8A2C48 /* libPods.a in Frameworks */,
+				9345183837579C40E200DBAB /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +88,7 @@
 		0856CB6A080047285D1EFE9C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E0C281E37EF8AB9D89D7F022 /* libPods.a */,
+				4431BC1C96E7F3EC6639F91A /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -108,11 +116,13 @@
 		8C944FD51A79C333000D329A /* Stitches2 */ = {
 			isa = PBXGroup;
 			children = (
-				8C944FDA1A79C333000D329A /* AppDelegate.h */,
-				8C944FDB1A79C333000D329A /* AppDelegate.m */,
+				8C9AB0CE1B27C71900A138E7 /* PhotoOperations.swift */,
+				8C9AB0CB1B27C69300A138E7 /* ListViewController.swift */,
+				8C944FE01A79C333000D329A /* Main.storyboard */,
 				8C944FDD1A79C333000D329A /* ViewController.h */,
 				8C944FDE1A79C333000D329A /* ViewController.m */,
-				8C944FE01A79C333000D329A /* Main.storyboard */,
+				8C1373F81B1A97BD00A56620 /* FavoritesCVC.h */,
+				8C1373F91B1A97BD00A56620 /* FavoritesCVC.m */,
 				8CED16FC1A79E2E9000FA954 /* YarnColorsTableViewController.h */,
 				8CED16FD1A79E2E9000FA954 /* YarnColorsTableViewController.m */,
 				8C67F74E1A7D7FF40036B4B6 /* NeedlesTableViewController.h */,
@@ -124,6 +134,7 @@
 				8C944FE31A79C333000D329A /* Images.xcassets */,
 				8C944FE51A79C333000D329A /* LaunchScreen.xib */,
 				8C944FD61A79C333000D329A /* Supporting Files */,
+				8C9AB0C91B27C69200A138E7 /* Stitches2-Bridging-Header.h */,
 			);
 			path = Stitches2;
 			sourceTree = "<group>";
@@ -131,6 +142,8 @@
 		8C944FD61A79C333000D329A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8C944FDA1A79C333000D329A /* AppDelegate.h */,
+				8C944FDB1A79C333000D329A /* AppDelegate.m */,
 				8C944FD71A79C333000D329A /* Info.plist */,
 				8C944FD81A79C333000D329A /* main.m */,
 			);
@@ -298,10 +311,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C1373FA1B1A97BD00A56620 /* FavoritesCVC.m in Sources */,
 				8C944FDF1A79C333000D329A /* ViewController.m in Sources */,
 				8CED16FE1A79E2E9000FA954 /* YarnColorsTableViewController.m in Sources */,
+				8C9AB0CF1B27C71900A138E7 /* PhotoOperations.swift in Sources */,
 				8CED17011A79E3BB000FA954 /* RaverlyOAuth.m in Sources */,
 				8C67F74D1A7D66D70036B4B6 /* Color.m in Sources */,
+				8C9AB0CD1B27C69300A138E7 /* ListViewController.swift in Sources */,
 				8C944FDC1A79C333000D329A /* AppDelegate.m in Sources */,
 				8C944FD91A79C333000D329A /* main.m in Sources */,
 				8C67F7501A7D7FF40036B4B6 /* NeedlesTableViewController.m in Sources */,
@@ -429,9 +445,12 @@
 			baseConfigurationReference = AD81E4DD9FAAACAB3A539D52 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Stitches2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Stitches2/Stitches2-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -440,9 +459,11 @@
 			baseConfigurationReference = 17481A052968277ED57EA8DA /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Stitches2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Stitches2/Stitches2-Bridging-Header.h";
 			};
 			name = Release;
 		};

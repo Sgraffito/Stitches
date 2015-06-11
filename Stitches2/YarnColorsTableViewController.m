@@ -21,6 +21,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:refreshControl];
     
     RaverlyOAuth *myEngine = [RaverlyOAuth sharedInstance];
 
@@ -50,6 +55,13 @@
     
     
     
+}
+
+- (void)refresh:(id)sender {
+    NSLog(@"Refreshing");
+    
+    // End the refreshing
+    [(UIRefreshControl *)sender endRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {

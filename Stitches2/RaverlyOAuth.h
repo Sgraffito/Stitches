@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AFOAuth1Client.h"
+#import <AFOAuth1Client/AFOAuth1Client.h>
+
 
 @interface RaverlyOAuth : NSObject
 
@@ -15,5 +16,6 @@
 @property (strong, nonatomic) NSString *userName;
 
 + (RaverlyOAuth *) sharedInstance;
+- (void) getFavorites;
 
 @end

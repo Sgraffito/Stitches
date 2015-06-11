@@ -28,6 +28,13 @@
         //        NSDictionary *responseArray = (NSDictionary *)responseObject;
         //        NSLog(@"%@", [[responseArray valueForKey:@"color_families"] valueForKey:@"name"]); // PRINT name values
         NSLog(@"%@", responseObject);
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSLog(@"returns dictonary");
+        }
+        else if([responseObject isKindOfClass:[NSArray class]]) {
+            NSLog(@"returns array");
+        }
+        
         self.needles = (NSDictionary *)responseObject;
         self.title = @"Needles retrieved";
         [self.tableView reloadData];
@@ -62,8 +69,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [[[self.needles objectForKey:@"needle_records"] valueForKey:@"id"] count];
-
+    return [[[self.needles objectForKey:@"needle_records"] valueForKey:@"comment"] count];
 }
 
 
@@ -71,7 +77,14 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    cell.textLabel.text = [[[self.needles objectForKey:@"needle_records"] objectAtIndex:indexPath.row] valueForKey:@"id"] ;
+    NSString *test = [[self.needles objectForKey:@"needle_records"] valueForKey:@"comment"][indexPath.row];
+    NSLog(@"%@", test);
+    if (!test || [test isKindOfClass:[NSNull class]]) {
+        cell.textLabel.text = @"none";
+    }
+    else {
+        cell.textLabel.text = test;
+    }
     return cell;
 }
 
