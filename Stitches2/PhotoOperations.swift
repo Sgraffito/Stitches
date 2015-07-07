@@ -20,12 +20,16 @@ enum PhotoRecordState {
 class PhotoRecord {
     let name:String
     let url:NSURL
+    let author:String
+    let craft:String
     var state = PhotoRecordState.New
     var image = UIImage(named: "Placeholder")
     
-    init(name:String, url:NSURL) {
+    init(name:String, url:NSURL, author:String, craft:String) {
         self.name = name
         self.url = url
+        self.author = author
+        self.craft = craft
     }
 }
 
@@ -119,21 +123,23 @@ class ImageFiltration:NSOperation {
     // Override the main method in the NSOperation subclass to actually perform work
     override func main() {
         
-        // Check for cancellation before starting
-        if self.cancelled {
-            return
-        }
-        
-        // If the image has not be downloaded yet, exit
-        if self.photoRecord.state != .Downloaded {
-            return
-        }
-        
-        // Create a sepia filtered image
-        if let filteredImage = self.applySepiaFilter(self.photoRecord.image!) {
-            self.photoRecord.image = filteredImage
-            self.photoRecord.state = .Filtered
-        }
+        self.photoRecord.state = .Filtered
+//
+//        // Check for cancellation before starting
+//        if self.cancelled {
+//            return
+//        }
+//        
+//        // If the image has not be downloaded yet, exit
+//        if self.photoRecord.state != .Downloaded {
+//            return
+//        }
+//        
+//        // Create a sepia filtered image
+//        if let filteredImage = self.applySepiaFilter(self.photoRecord.image!) {
+//            self.photoRecord.image = filteredImage
+//            self.photoRecord.state = .Filtered
+//        }
     }
     
     func applySepiaFilter(image:UIImage) -> UIImage? {

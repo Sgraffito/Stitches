@@ -8,17 +8,12 @@
 
 import UIKit
 import CoreImage
-
-let dataSourceURL = NSURL(string:"http://www.raywenderlich.com/downloads/ClassicPhotosDictionary.plist")
-
-//let dataSourceURL = NSURL(string:"http://www.raywenderlich.com/downloads/ClassicPhotosDictionary.plist")
+import MBProgressHUD
 
 class ListViewController: UITableViewController {
-  
-    var dataSource2URL:NSURL!
-
-    // Array of photo detail objects
-    var photos = [PhotoRecord]()
+    
+    let testSharedInstance = RaverlyOAuth.sharedInstance()
+    let spinner : UIActivityIndicatorView = UIActivityIndicatorView()
     
     // Manage the operations
     let pendingOperations = PendingOperations()
@@ -26,59 +21,94 @@ class ListViewController: UITableViewController {
     // MARK: - View
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Favorite Projects"
         
-        let testSharedInstance = RaverlyOAuth.sharedInstance()
-        let userName = testSharedInstance.userName;
         
-        // TEST PRINT
-        println("userName is: \(userName)")
+        // Custom table cell
+        // tableView.registerNib(UINib(nibName: "SimpleTableCell", bundle: nil), forCellReuseIdentifier: "SimpleTableRow")
         
-        let urlString:String = String(format: "https://api.ravelry.com/people/%@/favorites/list.json", userName)
-        dataSource2URL = NSURL(string: urlString)
+        finishInit()
         
-        // TEST PRINT
-        println("url is \(urlString)")
-        
-        testSharedInstance.getFavorites();
-        
-        // Register for notifications
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "actOnSpecialNote:", name: "mySpecialNotificationKey", object: nil);
-        
-        //self.fetchPhotoDetails()
+//        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+//        spinner.startAnimating()
+//        spinner.frame = CGRectMake(0, 0, 50, 50)
+//        self.tableView.tableFooterView = spinner
     }
   
+    func finishInit() {
+        // Abstract
+    }
+    
     func actOnSpecialNote(note: NSNotification) {
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
         let userInfo:NSDictionary = note.userInfo!
-//        println("userInfo is \(userInfo)")
-       
-        println("I got the notification!")
         
-        var colors: AnyObject? = userInfo.valueForKey("colorURL")
-        var url: AnyObject? = userInfo.valueForKey("nameURL")
-        println("Colors is: \(colors?.objectAtIndex(1))")
-//        println("URL is:  \(url)")
+        var patternName: AnyObject? = userInfo.valueForKey("patternNameURL")
+        var patternURL: AnyObject? = userInfo.valueForKey("patternPhotoURL")
+        var patternAuthor: AnyObject? = userInfo.valueForKey("patternAuthor")
+        var patternCraft: AnyObject? = userInfo.valueForKey("patternCraft")
         
-        if let screens: AnyObject = colors {
-            for screen in screens as! [AnyObject] {
-                let name = screen as? String
-                let url = NSURL(string:screen as? String ?? "")
-                if name != nil && url != nil {
-                    let photoRecord = PhotoRecord(name:name!, url:url!)
-                    self.photos.append(photoRecord)
+        var name:String = "No pattern name"
+        var url:NSURL = NSURL(string: "http://www.google.com")!
+        var author:String = "Author unknown"
+        var craft:String = "Craft unknown"
+        
+        for var i = 0; i < patternURL!.count; i += 1 {
+            if let nameObject: AnyObject = patternName?[i] {
+                if let nameObject2 = nameObject as? String {
+                   name = nameObject as! String
+                }
+                else {
+                    name = "No pattern name"
                 }
             }
+
+            if let urlObject: AnyObject = patternURL?[i] {
+                url = NSURL(string: urlObject as? String ?? "")!
+            }
+
+            if let authorObject: AnyObject = patternAuthor?[i] {
+                if let authorObject2 = authorObject as? String {
+                    author = authorObject2 as String
+                }
+                else {
+                    author = "Unknown"
+                }
+            }
+
+            if let craftObject: AnyObject = patternCraft?[i] {
+                if let craftObject2 = craftObject as? String {
+                    craft = craftObject2 as String
+                }
+                else {
+                    craft = "Unknown"
+                }
+            }
+            let photoRecord = PhotoRecord(name: name, url: url, author: author, craft: craft)
+            appendPhoto(photoRecord)
         }
+        
+        // Increase the page count
+        increasePageCount()
+        
+        // Dismiss the spinner
+//        spinner.stopAnimating()
+//        self.tableView.tableFooterView?.hidden = true
         
         self.tableView.reloadData()
         
-        
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-
-        
+    }
+    
+    func increasePageCount() {
+       // Abstract
+    }
+    
+    func appendPhoto(photoRecord:PhotoRecord) {
+        println("Calling main function")
+        // Abstract
+        // self.photos.append(photoRecord)
     }
     
     override func didReceiveMemoryWarning() {
@@ -88,17 +118,41 @@ class ListViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
-        return photos.count
+        return (getArrayCount()! + 1)
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80;
+    func getArrayCount() -> Int? {
+        // Abstract
+        // return (photos.count + 1)
+        return nil
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        var numberOfRows = getArrayCount()
+        let rowNumber = indexPath.row;
+        
+        // Last row is smaller than rest (load next images)
+        if (numberOfRows == rowNumber) {
+            return 60
+        }
+        
+        return 150
+    }
     
-        UITableViewCell {
-            let cell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier", forIndexPath: indexPath) as! UITableViewCell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var defaultCell:UITableViewCell!
+        let row = indexPath.row
+        let rowCount = getArrayCount()
+        
+        if row == rowCount {
+            let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier", forIndexPath:indexPath) as! UITableViewCell
+            cell.textLabel?.text = "Load next 25"
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("SimpleTableRow", forIndexPath:indexPath) as! SimpleCellTVC
             
             if cell.accessoryView == nil {
                 let indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
@@ -109,14 +163,18 @@ class ListViewController: UITableViewController {
             let indicator = cell.accessoryView as! UIActivityIndicatorView
             
             // Fetch the right instance of the photo record based on the current row's index path
-            let photoDetails = photos[indexPath.row]
+            let photoDetails = getPhotoForRow(indexPath.row)
             
             // Set the image and name of the cell
-            cell.textLabel?.text = photoDetails.name
-            cell.imageView?.image = photoDetails.image
-            
+            cell.thumbNailView.contentMode = UIViewContentMode.ScaleAspectFill
+            cell.thumbNailView.clipsToBounds = true
+            cell.thumbNailView.image = photoDetails!.image
+            cell.projectName.text = photoDetails!.name
+            let projectAuthor:String = "Designer: \(photoDetails!.author)"
+            cell.projectAuthor.text = projectAuthor
+        
             // Inspect the record. Set up the activity indicator and text as appropriate
-            switch (photoDetails.state) {
+            switch (photoDetails!.state) {
             case .Filtered:
                 indicator.stopAnimating()
             case .Failed:
@@ -125,10 +183,30 @@ class ListViewController: UITableViewController {
             case .New, .Downloaded:
                 indicator.startAnimating()
                 if (!tableView.dragging && !tableView.decelerating) {
-                    self.startOperationsForPhotoRecord(photoDetails, indexPath: indexPath)
+                    self.startOperationsForPhotoRecord(photoDetails!, indexPath: indexPath)
                 }
             }
             return cell
+        }
+    }
+    
+    func getPhotoForRow(row:Int) -> PhotoRecord? {
+        // Abstract
+        return nil
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        println("Selecting row")
+        
+        if (indexPath.row == getArrayCount()) {
+            testSharedInstance.getFavorites(getPageCount())
+        }
+        
+    }
+    
+    func getPageCount() -> Int? {
+        return nil
     }
     
     //  MARK: - Set operations for the photos
@@ -140,10 +218,10 @@ class ListViewController: UITableViewController {
         switch (photoDetails.state) {
         case .New:
             startDownloadForRecord(photoDetails, indexPath: indexPath)
-//        case .Downloaded:
-//            startFiltrationForRecord(photoDetails, indexPath: indexPath)
+        case .Downloaded:
+            startFiltrationForRecord(photoDetails, indexPath: indexPath)
         default:
-            NSLog("do nothing")
+            NSLog("do nothing to photo")
         }
     }
     
@@ -153,7 +231,6 @@ class ListViewController: UITableViewController {
         if let downloadOperation = pendingOperations.downloadsInProgress[indexPath] {
             return
         }
-        
         
         let downloader = ImageDownloader(photoRecord: photoDetails)
         
@@ -193,42 +270,42 @@ class ListViewController: UITableViewController {
     //  MARK: - Download the photos
     //  Creates an asychronous web request which, when finished, will run the completion block
     //  on the main queue
-    func fetchPhotoDetails() {
-        
-        let request = NSURLRequest(URL:dataSourceURL!)
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue())
-            { response, data, error in
-                
-                // When download in complete, the property list data is extracted into a NSDictionary
-                // and then processed again into array of PhotoRecord objects
-                if data != nil  {
-                    let datasourceDictionay = NSPropertyListSerialization.propertyListWithData(data,
-                        options: Int(NSPropertyListMutabilityOptions.Immutable.rawValue),
-                            format: nil,
-                            error: nil) as! NSDictionary
-                    
-                    for (key: AnyObject, value : AnyObject) in datasourceDictionay {
-                        let name = key as? String
-                        let url = NSURL(string:value as? String ?? "")
-                        if name != nil && url != nil {
-                            let photoRecord = PhotoRecord(name:name!, url:url!)
-                            self.photos.append(photoRecord)
-                        }
-                    }
-                    
-                    self.tableView.reloadData()
-                }
-        
-                if error != nil {
-                    let alert = UIAlertView(title: "Oops!", message: error.localizedDescription, delegate: nil, cancelButtonTitle: "OK")
-                    alert.show()
-                }
-        
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        }
-    }
+//    func fetchPhotoDetails() {
+//        
+//        let request = NSURLRequest(URL:dataSourceURL!)
+//        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+//        
+//        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue())
+//            { response, data, error in
+//                
+//                // When download in complete, the property list data is extracted into a NSDictionary
+//                // and then processed again into array of PhotoRecord objects
+//                if data != nil  {
+//                    let datasourceDictionay = NSPropertyListSerialization.propertyListWithData(data,
+//                        options: Int(NSPropertyListMutabilityOptions.Immutable.rawValue),
+//                            format: nil,
+//                            error: nil) as! NSDictionary
+//                    
+//                    for (key: AnyObject, value : AnyObject) in datasourceDictionay {
+//                        let name = key as? String
+//                        let url = NSURL(string:value as? String ?? "")
+//                        if name != nil && url != nil {
+////                            let photoRecord = PhotoRecord(name:name!, url:url!)
+////                            self.photos.append(photoRecord)
+//                        }
+//                    }
+//                    
+//                    self.tableView.reloadData()
+//                }
+//        
+//                if error != nil {
+//                    let alert = UIAlertView(title: "Oops!", message: error.localizedDescription, delegate: nil, cancelButtonTitle: "OK")
+//                    alert.show()
+//                }
+//        
+//                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+//        }
+//    }
     
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         //1
@@ -290,8 +367,12 @@ class ListViewController: UITableViewController {
             // 6
             for indexPath in toBeStarted {
                 let indexPath = indexPath as NSIndexPath
-                let recordToProcess = self.photos[indexPath.row]
-                startOperationsForPhotoRecord(recordToProcess, indexPath: indexPath)
+                
+                // Do not render last row, which does not contain a photo (load next)
+                if (indexPath.row < getArrayCount()) {
+                    let recordToProcess = getPhotoForRow(indexPath.row)
+                    startOperationsForPhotoRecord(recordToProcess!, indexPath: indexPath)
+                }
             }
         }
     }

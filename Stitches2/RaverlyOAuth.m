@@ -181,26 +181,34 @@ static RaverlyOAuth *_sharedInstance;
     return _sharedInstance;
 }
 
-- (void)getFavorites {
-    
+- (void)getFavorites:(NSNumber *)pageNumber {
     
     NSString *url = [NSString stringWithFormat:@"https://api.ravelry.com/people/%@/favorites/list.json", self.userName];
     
-    [self.ravelryClient getPath:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary *searchParams = @{@"page":@([pageNumber integerValue]), @"page_size":@(25)};
+    
+    [self.ravelryClient getPath:url parameters:searchParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        //NSLog(@"RESPONSE OBJECT: %@", responseObject);
+//        NSLog(@"RESPONSE OBJECT: %@", responseObject);
         
         NSDictionary *test = (NSDictionary *)responseObject;
         
         NSLog(@"%@", responseObject);
         
-        NSArray *url = [test valueForKeyPath:@"favorites.favorited.first_photo.medium_url"];
-        NSArray *name = [test valueForKeyPath:@"favorites.favorited.first_photo.medium_url"];
+        NSArray *url = [test valueForKeyPath:@"favorites.favorited.first_photo.small_url"];
+        NSArray *name = [test valueForKeyPath:@"favorites.favorited.name"];
+        NSArray *author = [test valueForKeyPath:@"favorites.favorited.pattern_author.name"];
+        NSArray *craft = [test valueForKeyPath:@"favorites.favorited.craft_name"];
         
-        NSDictionary *theInfo = [NSDictionary dictionaryWithObjects:@[url, name] forKeys:@[@"colorURL", @"nameURL"]];
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjects:@[url, name, author, craft]
+                                                            forKeys:@[@"patternPhotoURL", @"patternNameURL",
+                                                                      @"patternAuthor", @"patternCraft"]];
         
 //        NSLog(@"TEST: %@", test);
+        
+        // Notify table that download has finished
         [[NSNotificationCenter defaultCenter] postNotificationName:@"mySpecialNotificationKey" object:self userInfo:theInfo];
+        
 
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -211,7 +219,47 @@ static RaverlyOAuth *_sharedInstance;
                                                   otherButtonTitles:nil];
         [alertView show];
     }];
+}
+
+- (void)searchFavorites:(NSString *)searchKeyword {
     
+    NSString *url = [NSString stringWithFormat:@"https://api.ravelry.com/projects/search.json"];
+    
+    NSDictionary *searchParams = @{@"sort":@("favorites"), @"page":@(1), @"page_size":@(25), @"query":@([searchKeyword UTF8String])};
+    
+    [self.ravelryClient getPath:url parameters:searchParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *test = (NSDictionary *)responseObject;
+        
+//        NSLog(@"Test: %@", test);
+        
+        NSArray *url = [test valueForKeyPath:@"projects.first_photo.small_url"];
+        NSArray *author = [test valueForKeyPath:@"projects.user.username"];
+        NSArray *name = [test valueForKeyPath:@"projects.name"];
+        NSArray *craft = [test valueForKeyPath:@"projects.craft_name"];
+//        NSArray *favoriteNum = [test valueForKeyPath:@"projects.]
+
+        NSLog(@"url: %@", url);
+        NSLog(@"name: %@", name);
+        NSLog(@"author: %@", author);
+        NSLog(@"craft: %@", craft);
+
+        
+        NSDictionary *theInfo = [NSDictionary dictionaryWithObjects:@[url, name, author, craft]
+                                                            forKeys:@[@"patternPhotoURL", @"patternNameURL",
+                                                                      @"patternAuthor", @"patternCraft"]];
+        
+        // Notify table that download has finished
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"searchFavoriteResults" object:self userInfo:theInfo];
+    
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Favorites"
+                                                            message:[error localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }];
 }
 
 

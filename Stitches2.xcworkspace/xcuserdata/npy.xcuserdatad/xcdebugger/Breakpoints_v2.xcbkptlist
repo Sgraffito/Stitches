@@ -6,7 +6,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             scope = "0"
@@ -20,13 +20,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Stitches2/ListViewController.swift"
-            timestampString = "455678140.840309"
+            timestampString = "457840875.74176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "actOnSpecialNote(_:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Stitches2/ResultsTableView.swift"
+            timestampString = "456523045.687097"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "ResultsTableView"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stitches2.ResultsTableView.pendingOperations.getter : Stitches2.PendingOperations"
+                  moduleName = "Stitches2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/npy/Documents/Nicole&apos;s%20Stuff/Computers/Mac%20Apps/Ravelry/Stitches2/Stitches2/ResultsTableView.swift"
+                  timestampString = "456523046.039588"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stitches2.ResultsTableView.init (Stitches2.ResultsTableView.Type)(frame : C.CGRect) -&gt; Stitches2.ResultsTableView"
+                  moduleName = "Stitches2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/npy/Documents/Nicole&apos;s%20Stuff/Computers/Mac%20Apps/Ravelry/Stitches2/Stitches2/ResultsTableView.swift"
+                  timestampString = "456523046.040014"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "153">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Stitches2.ResultsTableView.init (Stitches2.ResultsTableView.Type)(coder : ObjectiveC.NSCoder) -&gt; Stitches2.ResultsTableView"
+                  moduleName = "Stitches2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/npy/Documents/Nicole&apos;s%20Stuff/Computers/Mac%20Apps/Ravelry/Stitches2/Stitches2/ResultsTableView.swift"
+                  timestampString = "456523046.040202"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "103">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

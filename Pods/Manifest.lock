@@ -2,6 +2,7 @@ PODS:
   - AFNetworking (1.3.4)
   - AFOAuth1Client (1.0.0):
     - AFNetworking (~> 1.3)
+  - MBProgressHUD (0.9.1)
   - RestKit (0.20.3):
     - RestKit/Core (= 0.20.3)
   - RestKit/Core (0.20.3):
@@ -22,11 +23,13 @@ PODS:
 
 DEPENDENCIES:
   - AFOAuth1Client
+  - MBProgressHUD
   - RestKit (~> 0.20.0)
 
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
   AFOAuth1Client: 51d32174520b54d7e15a8b3dd618a9a5b87a6344
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   RestKit: ddc3c3a2b6cbe4578c4193d8e0dfe93d79333c3b
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
   TransitionKit: aec4d65b2be460fec0db04f905e8bedca601d669

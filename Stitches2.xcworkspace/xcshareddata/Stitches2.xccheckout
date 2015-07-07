@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3D4A6C3A-3772-4029-A416-EE0DC2F51FA7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Stitches2</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2ADBA6F15B88C1FA3D2DB7A2D481BCA1CA07F676</key>
+		<string>https://github.com/Sgraffito/iosDataBaseTesting.git</string>
+		<key>BEF9D4320A3FED432AB994A2A8E97DD56BA70183</key>
+		<string>https://github.com/Sgraffito/Stitches.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Stitches2.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2ADBA6F15B88C1FA3D2DB7A2D481BCA1CA07F676</key>
+		<string>../..</string>
+		<key>BEF9D4320A3FED432AB994A2A8E97DD56BA70183</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Sgraffito/Stitches.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BEF9D4320A3FED432AB994A2A8E97DD56BA70183</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2ADBA6F15B88C1FA3D2DB7A2D481BCA1CA07F676</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BEF9D4320A3FED432AB994A2A8E97DD56BA70183</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Stitches2</string>
+		</dict>
+	</array>
+</dict>
+</plist>

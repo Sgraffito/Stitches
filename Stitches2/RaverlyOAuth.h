@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSString *userName;
 
 + (RaverlyOAuth *) sharedInstance;
-- (void) getFavorites;
+- (void) getFavorites:(NSNumber *)pageCount;
+- (void)searchFavorites:(NSString *)searchKeyword;
 
 @end
