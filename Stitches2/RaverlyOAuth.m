@@ -193,7 +193,7 @@ static RaverlyOAuth *_sharedInstance;
         
         NSDictionary *test = (NSDictionary *)responseObject;
         
-        NSLog(@"%@", responseObject);
+//        NSLog(@"%@", responseObject);
         
         NSArray *url = [test valueForKeyPath:@"favorites.favorited.first_photo.small_url"];
         NSArray *name = [test valueForKeyPath:@"favorites.favorited.name"];

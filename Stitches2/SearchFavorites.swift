@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreImage
 
-class SearchFavoritesViewController: ListViewController, UISearchBarDelegate {
+class SearchFavoritesViewController: ListVC, UISearchBarDelegate {
     
     @IBOutlet weak var searchToolbar: UISearchBar!
     var searchActive:ObjCBool = false
@@ -91,7 +91,7 @@ class SearchFavoritesViewController: ListViewController, UISearchBarDelegate {
     }
     
     // MARK: - Keyboard
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
         searchToolbar.resignFirstResponder()
     }
 }

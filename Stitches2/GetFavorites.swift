@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreImage
 
-class GetFavoritesViewController: ListViewController {
+class GetFavoritesViewController: ListVC {
     
     // Array of photo detail objects
     var getFavoritePhotos = [PhotoRecord]()

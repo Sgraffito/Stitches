@@ -10,6 +10,7 @@
 		8C08F35F1B325BA800157155 /* SearchFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08F35E1B325BA800157155 /* SearchFavorites.swift */; };
 		8C08F3611B325C9600157155 /* GetFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C08F3601B325C9600157155 /* GetFavorites.swift */; };
 		8C1373FA1B1A97BD00A56620 /* FavoritesCVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1373F91B1A97BD00A56620 /* FavoritesCVC.m */; };
+		8C14D10A1B4CB9A200713D4E /* ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C14D1091B4CB9A200713D4E /* ListVC.swift */; };
 		8C55D1771B2BA02000B85F8E /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C55D1761B2BA02000B85F8E /* ListViewController.swift */; };
 		8C67F74D1A7D66D70036B4B6 /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C67F74C1A7D66D70036B4B6 /* Color.m */; };
 		8C67F7501A7D7FF40036B4B6 /* NeedlesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C67F74F1A7D7FF40036B4B6 /* NeedlesTableViewController.m */; };
@@ -45,6 +46,7 @@
 		8C08F3601B325C9600157155 /* GetFavorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFavorites.swift; sourceTree = "<group>"; };
 		8C1373F81B1A97BD00A56620 /* FavoritesCVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesCVC.h; sourceTree = "<group>"; };
 		8C1373F91B1A97BD00A56620 /* FavoritesCVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesCVC.m; sourceTree = "<group>"; };
+		8C14D1091B4CB9A200713D4E /* ListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListVC.swift; sourceTree = "<group>"; };
 		8C55D1761B2BA02000B85F8E /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		8C67F74B1A7D66D70036B4B6 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		8C67F74C1A7D66D70036B4B6 /* Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Color.m; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				8C9AB0CE1B27C71900A138E7 /* PhotoOperations.swift */,
 				8C7942671B35FEF8001F061B /* ResultsVC.swift */,
 				8C55D1761B2BA02000B85F8E /* ListViewController.swift */,
+				8C14D1091B4CB9A200713D4E /* ListVC.swift */,
 				8C08F35E1B325BA800157155 /* SearchFavorites.swift */,
 				8C08F3601B325C9600157155 /* GetFavorites.swift */,
 				8CB969291B2B071F00F700DD /* SimpleCellTVC.h */,
@@ -331,6 +334,7 @@
 				8CED16FE1A79E2E9000FA954 /* YarnColorsTableViewController.m in Sources */,
 				8C9AB0CF1B27C71900A138E7 /* PhotoOperations.swift in Sources */,
 				8CB9692B1B2B071F00F700DD /* SimpleCellTVC.m in Sources */,
+				8C14D10A1B4CB9A200713D4E /* ListVC.swift in Sources */,
 				8C55D1771B2BA02000B85F8E /* ListViewController.swift in Sources */,
 				8C7942681B35FEF8001F061B /* ResultsVC.swift in Sources */,
 				8CED17011A79E3BB000FA954 /* RaverlyOAuth.m in Sources */,

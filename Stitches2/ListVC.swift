@@ -1,16 +1,18 @@
 //
-//  ListViewController.swift
-//  ClassicPhotos
+//  ListVC.swift
+//  Stitches2
 //
-//  Created by Richard Turton on 03/07/2014.
-//  Copyright (c) 2014 raywenderlich. All rights reserved.
+//  Created by Nicole Yarroch on 7/7/15.
+//  Copyright (c) 2015 Nicole Yarroch. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import CoreImage
 
-class ListViewController: UITableViewController {
+class ListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var tableView: UITableView!
     let testSharedInstance = RaverlyOAuth.sharedInstance()
     let spinner : UIActivityIndicatorView = UIActivityIndicatorView()
     var loadingNotification : MBProgressHUD?
@@ -22,16 +24,26 @@ class ListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Table view
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        finishInit()
+        
         // Loading spinner
         self.loadingNotification = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
         self.loadingNotification?.mode = MBProgressHUDMode.Indeterminate
         self.loadingNotification?.labelText = "Loading"
     }
     
+    func finishInit() {
+        // Abstract
+    }
+    
     func actOnSpecialNote(note: NSNotification) {
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-
+        
         let userInfo:NSDictionary = note.userInfo!
         
         var patternName: AnyObject? = userInfo.valueForKey("patternNameURL")
@@ -47,17 +59,17 @@ class ListViewController: UITableViewController {
         for var i = 0; i < patternURL!.count; i += 1 {
             if let nameObject: AnyObject = patternName?[i] {
                 if let nameObject2 = nameObject as? String {
-                   name = nameObject as! String
+                    name = nameObject as! String
                 }
                 else {
                     name = "No pattern name"
                 }
             }
-
+            
             if let urlObject: AnyObject = patternURL?[i] {
                 url = NSURL(string: urlObject as? String ?? "")!
             }
-
+            
             if let authorObject: AnyObject = patternAuthor?[i] {
                 if let authorObject2 = authorObject as? String {
                     author = authorObject2 as String
@@ -66,7 +78,7 @@ class ListViewController: UITableViewController {
                     author = "Unknown"
                 }
             }
-
+            
             if let craftObject: AnyObject = patternCraft?[i] {
                 if let craftObject2 = craftObject as? String {
                     craft = craftObject2 as String
@@ -83,8 +95,6 @@ class ListViewController: UITableViewController {
         increasePageCount()
         
         // Dismiss the spinner
-//        spinner.stopAnimating()
-//        self.tableView.tableFooterView?.hidden = true
         self.loadingNotification?.hide(true)
         
         self.tableView.reloadData()
@@ -93,7 +103,7 @@ class ListViewController: UITableViewController {
     }
     
     func increasePageCount() {
-       // Abstract
+        // Abstract
     }
     
     func appendPhoto(photoRecord:PhotoRecord) {
@@ -106,9 +116,9 @@ class ListViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-    override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (getArrayCount()! + 1)
     }
 
@@ -118,7 +128,7 @@ class ListViewController: UITableViewController {
         return nil
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         var numberOfRows = getArrayCount()
         let rowNumber = indexPath.row;
@@ -131,7 +141,8 @@ class ListViewController: UITableViewController {
         return 150
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var defaultCell:UITableViewCell!
         let row = indexPath.row
@@ -139,7 +150,7 @@ class ListViewController: UITableViewController {
         
         println("row is: \(row)")
         if row == rowCount {
-                let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier", forIndexPath:indexPath) as! UITableViewCell
+            let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier", forIndexPath:indexPath) as! UITableViewCell
             if row == 0 {
                 cell.textLabel?.text = ""
                 cell.backgroundColor = UIColor.clearColor()
@@ -148,7 +159,7 @@ class ListViewController: UITableViewController {
                 cell.textLabel?.text = "Load next 25"
                 cell.backgroundColor = UIColor.blueColor()
             }
-                return cell
+            return cell
         }
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("SimpleTableRow", forIndexPath:indexPath) as! SimpleCellTVC
@@ -171,7 +182,7 @@ class ListViewController: UITableViewController {
             cell.projectName.text = photoDetails!.name
             let projectAuthor:String = "Designer: \(photoDetails!.author)"
             cell.projectAuthor.text = projectAuthor
-        
+            
             // Inspect the record. Set up the activity indicator and text as appropriate
             switch (photoDetails!.state) {
             case .Filtered:
@@ -194,7 +205,7 @@ class ListViewController: UITableViewController {
         return nil
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         println("Selecting row")
         
@@ -242,7 +253,7 @@ class ListViewController: UITableViewController {
                 self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             })
         }
-
+        
         pendingOperations.downloadsInProgress[indexPath] = downloader
         pendingOperations.downloadQueue.addOperation(downloader)
     }
@@ -265,53 +276,53 @@ class ListViewController: UITableViewController {
         pendingOperations.filtrationsInProgress[indexPath] = filterer
         pendingOperations.filtrationQueue.addOperation(filterer)
     }
-
+    
     //  MARK: - Download the photos
     //  Creates an asychronous web request which, when finished, will run the completion block
     //  on the main queue
-//    func fetchPhotoDetails() {
-//        
-//        let request = NSURLRequest(URL:dataSourceURL!)
-//        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-//        
-//        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue())
-//            { response, data, error in
-//                
-//                // When download in complete, the property list data is extracted into a NSDictionary
-//                // and then processed again into array of PhotoRecord objects
-//                if data != nil  {
-//                    let datasourceDictionay = NSPropertyListSerialization.propertyListWithData(data,
-//                        options: Int(NSPropertyListMutabilityOptions.Immutable.rawValue),
-//                            format: nil,
-//                            error: nil) as! NSDictionary
-//                    
-//                    for (key: AnyObject, value : AnyObject) in datasourceDictionay {
-//                        let name = key as? String
-//                        let url = NSURL(string:value as? String ?? "")
-//                        if name != nil && url != nil {
-////                            let photoRecord = PhotoRecord(name:name!, url:url!)
-////                            self.photos.append(photoRecord)
-//                        }
-//                    }
-//                    
-//                    self.tableView.reloadData()
-//                }
-//        
-//                if error != nil {
-//                    let alert = UIAlertView(title: "Oops!", message: error.localizedDescription, delegate: nil, cancelButtonTitle: "OK")
-//                    alert.show()
-//                }
-//        
-//                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-//        }
-//    }
+    //    func fetchPhotoDetails() {
+    //
+    //        let request = NSURLRequest(URL:dataSourceURL!)
+    //        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    //
+    //        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue())
+    //            { response, data, error in
+    //
+    //                // When download in complete, the property list data is extracted into a NSDictionary
+    //                // and then processed again into array of PhotoRecord objects
+    //                if data != nil  {
+    //                    let datasourceDictionay = NSPropertyListSerialization.propertyListWithData(data,
+    //                        options: Int(NSPropertyListMutabilityOptions.Immutable.rawValue),
+    //                            format: nil,
+    //                            error: nil) as! NSDictionary
+    //
+    //                    for (key: AnyObject, value : AnyObject) in datasourceDictionay {
+    //                        let name = key as? String
+    //                        let url = NSURL(string:value as? String ?? "")
+    //                        if name != nil && url != nil {
+    ////                            let photoRecord = PhotoRecord(name:name!, url:url!)
+    ////                            self.photos.append(photoRecord)
+    //                        }
+    //                    }
+    //
+    //                    self.tableView.reloadData()
+    //                }
+    //
+    //                if error != nil {
+    //                    let alert = UIAlertView(title: "Oops!", message: error.localizedDescription, delegate: nil, cancelButtonTitle: "OK")
+    //                    alert.show()
+    //                }
+    //
+    //                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    //        }
+    //    }
     
-    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         //1
         suspendAllOperations()
     }
     
-    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         // 2
         if !decelerate {
             loadImagesForOnscreenCells()
@@ -319,7 +330,7 @@ class ListViewController: UITableViewController {
         }
     }
     
-    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         // 3
         loadImagesForOnscreenCells()
         resumeAllOperations()
